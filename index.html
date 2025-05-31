@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoContent AI Pro - WordPress Plugin Demo</title>
+    <link rel="stylesheet" href="demo-styles.css">
+</head>
+<body>
+    <div class="demo-header">
+        <h1>AutoContent AI Pro - WordPress Plugin</h1>
+        <p>AI-Powered Content Generation with SEO Optimization</p>
+    </div>
+
+    <div class="demo-container">
+        <!-- WordPress Admin Sidebar Simulation -->
+        <div class="wp-sidebar">
+            <div class="wp-menu">
+                <h3>WordPress Admin</h3>
+                <ul>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#posts">Posts</a></li>
+                    <li><a href="#media">Media</a></li>
+                    <li class="active"><a href="#autocontent">AutoContent AI</a></li>
+                    <li><a href="#settings">Settings</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="wp-main">
+            <!-- WordPress Admin Bar -->
+            <div class="wp-admin-bar">
+                <span>WordPress Admin</span>
+                <div class="wp-user-info">
+                    <span>Hello, Admin</span>
+                </div>
+            </div>
+
+            <!-- Plugin Content -->
+            <div class="wrap">
+                <h1>AutoContent AI Pro</h1>
+                
+                <div class="autocontent-admin-container">
+                    <div class="autocontent-main-content">
+                        <!-- Single Article Generation -->
+                        <div class="autocontent-card">
+                            <h2>Generate Single Article</h2>
+                            <form id="single-article-form" class="autocontent-form">
+                                <table class="form-table">
+                                    <tr>
+                                        <th scope="row">
+                                            <label for="topic">Topic/Keywords</label>
+                                        </th>
+                                        <td>
+                                            <input type="text" id="topic" name="topic" class="regular-text" 
+                                                   placeholder="Enter topic or keywords..." />
+                                            <p class="description">Enter the main topic or keywords for the article.</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            <label for="focus_keyword">Focus Keyword</label>
+                                        </th>
+                                        <td>
+                                            <input type="text" id="focus_keyword" name="focus_keyword" class="regular-text" 
+                                                   placeholder="Enter focus keyword..." />
+                                            <p class="description">The primary keyword for SEO optimization.</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            <label for="publish_status">Publish Status</label>
+                                        </th>
+                                        <td>
+                                            <select id="publish_status" name="publish_status">
+                                                <option value="draft">Save as Draft</option>
+                                                <option value="publish">Publish Immediately</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <p class="submit">
+                                    <button type="button" class="button button-primary" onclick="demoGenerate()">
+                                        <span class="dashicons">📝</span>
+                                        Generate Article
+                                    </button>
+                                </p>
+                            </form>
+                        </div>
+                        
+                        <!-- Batch Generation -->
+                        <div class="autocontent-card">
+                            <h2>Batch Generate Articles</h2>
+                            <form id="batch-articles-form" class="autocontent-form">
+                                <table class="form-table">
+                                    <tr>
+                                        <th scope="row">
+                                            <label for="keyword_list">Keywords List</label>
+                                        </th>
+                                        <td>
+                                            <textarea id="keyword_list" name="keyword_list" rows="5" class="large-text" 
+                                                      placeholder="Enter one keyword per line..."></textarea>
+                                            <p class="description">Enter one keyword per line. Each keyword will be used to generate a separate article.</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            <label for="batch_publish_status">Publish Status</label>
+                                        </th>
+                                        <td>
+                                            <select id="batch_publish_status" name="batch_publish_status">
+                                                <option value="draft">Save as Draft</option>
+                                                <option value="publish">Publish Immediately</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <p class="submit">
+                                    <button type="button" class="button button-primary" onclick="demoBatchGenerate()">
+                                        <span class="dashicons">📄</span>
+                                        Generate Batch Articles
+                                    </button>
+                                </p>
+                            </form>
+                        </div>
+                        
+                        <!-- Progress and Results -->
+                        <div id="generation-progress" class="autocontent-card" style="display: none;">
+                            <h2>Generation Progress</h2>
+                            <div class="autocontent-progress-bar">
+                                <div class="progress-fill" style="width: 0%;"></div>
+                            </div>
+                            <div id="progress-status">Preparing...</div>
+                        </div>
+                        
+                        <div id="generation-results" class="autocontent-card" style="display: none;">
+                            <h2>Generation Results</h2>
+                            <div id="results-content"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sidebar -->
+                    <div class="autocontent-sidebar">
+                        <!-- API Status -->
+                        <div class="autocontent-card">
+                            <h3>API Status</h3>
+                            <div id="api-status">
+                                <div class="api-status-warning">⚠ API keys not configured</div>
+                            </div>
+                            <button type="button" id="test-api" class="button button-secondary" onclick="testApiConnection()">
+                                Test API Connection
+                            </button>
+                        </div>
+                        
+                        <!-- Quick Stats -->
+                        <div class="autocontent-card">
+                            <h3>Quick Stats</h3>
+                            <div class="autocontent-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">15</span>
+                                    <span class="stat-label">Published Posts</span>
+                                </div>
+                                
+                                <div class="stat-item">
+                                    <span class="stat-number">8</span>
+                                    <span class="stat-label">Successful Generations</span>
+                                </div>
+                                
+                                <div class="stat-item">
+                                    <span class="stat-number">2</span>
+                                    <span class="stat-label">Generation Errors</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Actions -->
+                        <div class="autocontent-card">
+                            <h3>Quick Actions</h3>
+                            <div class="autocontent-quick-actions">
+                                <a href="#settings" class="button button-secondary" onclick="showSettings()">
+                                    <span class="dashicons">⚙️</span>
+                                    Settings
+                                </a>
+                                
+                                <a href="#logs" class="button button-secondary" onclick="showLogs()">
+                                    <span class="dashicons">📋</span>
+                                    View Logs
+                                </a>
+                                
+                                <a href="#posts" class="button button-secondary">
+                                    <span class="dashicons">📝</span>
+                                    All Posts
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Modal for Settings -->
+    <div id="settings-modal" class="demo-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>AutoContent AI Pro - Settings</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="autocontent-card">
+                    <h3>API Settings</h3>
+                    <table class="form-table">
+                        <tr>
+                            <th>OpenRouter API Key</th>
+                            <td>
+                                <input type="password" class="regular-text" placeholder="Enter your OpenRouter API key" />
+                                <p class="description">Your OpenRouter API key for content generation.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>OpenAI API Key</th>
+                            <td>
+                                <input type="password" class="regular-text" placeholder="Enter your OpenAI API key" />
+                                <p class="description">Your OpenAI API key for ChatGPT models.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Claude API Key</th>
+                            <td>
+                                <input type="password" class="regular-text" placeholder="Enter your Anthropic API key" />
+                                <p class="description">Your Anthropic API key for Claude models.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>DeepSeek API Key</th>
+                            <td>
+                                <input type="password" class="regular-text" placeholder="Enter your DeepSeek API key" />
+                                <p class="description">Your DeepSeek API key for DeepSeek models.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Image API Key (Unsplash)</th>
+                            <td>
+                                <input type="password" class="regular-text" placeholder="Enter your Unsplash API key" />
+                                <p class="description">Your Unsplash API key for image generation.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Default AI Model</th>
+                            <td>
+                                <select>
+                                    <optgroup label="OpenAI Models">
+                                        <option>GPT-4 (OpenAI)</option>
+                                        <option>GPT-4 Turbo (OpenAI)</option>
+                                        <option>GPT-3.5 Turbo (OpenAI)</option>
+                                    </optgroup>
+                                    <optgroup label="Claude Models">
+                                        <option>Claude 3 Opus (Anthropic)</option>
+                                        <option>Claude 3 Sonnet (Anthropic)</option>
+                                        <option>Claude 3 Haiku (Anthropic)</option>
+                                    </optgroup>
+                                    <optgroup label="DeepSeek Models">
+                                        <option>DeepSeek Chat</option>
+                                        <option>DeepSeek Coder</option>
+                                    </optgroup>
+                                    <optgroup label="OpenRouter Models">
+                                        <option>GPT-4 (via OpenRouter)</option>
+                                        <option>Claude 2 (via OpenRouter)</option>
+                                    </optgroup>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="autocontent-card">
+                    <h3>Content Settings</h3>
+                    <table class="form-table">
+                        <tr>
+                            <th>Default Publish Status</th>
+                            <td>
+                                <select>
+                                    <option>Draft</option>
+                                    <option>Publish</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Feature Options</th>
+                            <td>
+                                <label><input type="checkbox" checked> Enable automatic image generation</label><br>
+                                <label><input type="checkbox" checked> Enable SEO optimization</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Internal Links Count</th>
+                            <td><input type="number" value="2" min="0" max="10" /></td>
+                        </tr>
+                        <tr>
+                            <th>External Links Count</th>
+                            <td><input type="number" value="3" min="0" max="10" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="demo-script.js"></script>
+</body>
+</html>
